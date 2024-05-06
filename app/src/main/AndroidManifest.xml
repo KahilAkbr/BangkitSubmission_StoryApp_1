@@ -13,7 +13,13 @@
         android:theme="@style/Theme.Storygram"
         tools:targetApi="31">
         <activity
-            android:name=".view.BoardingActivity"
+            android:name=".view.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.boarding.BoardingActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
@@ -24,9 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.MainActivity"
-            android:exported="false"/>
     </application>
 
 </manifest>

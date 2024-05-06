@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Storygram</string>
+    <string name="title_welcome_page">Selamat Datang di Storygram!</string>
+    <string name="message_welcome_page">Mulailah jelajahi aplikasi dengan masuk ke dalam akun. Pilih Masuk jika anda telah memiliki akun dan pilih Daftar jika anda adalah pengguna baru</string>
+    <string name="login">Masuk</string>
+    <string name="signup">Daftar</string>
 
 </resources>
