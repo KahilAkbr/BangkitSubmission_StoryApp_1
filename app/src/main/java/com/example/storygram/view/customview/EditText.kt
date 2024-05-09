@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.example.storygram.R
+import com.example.storygram.utils.EmailValidator
 import java.util.regex.Pattern
 
 class EditText @JvmOverloads constructor(
@@ -60,7 +61,7 @@ class EditText @JvmOverloads constructor(
                         before: Int,
                         count: Int
                     ) {
-                        if (!isValidEmail(s.toString())) {
+                        if (!EmailValidator.validate(s.toString())) {
                             error = context.getString(R.string.invalid_email)
                         } else {
                             error = null
@@ -75,9 +76,5 @@ class EditText @JvmOverloads constructor(
             }
         }
     }
-    fun isValidEmail(email: String): Boolean {
-        val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
-        val pattern = Pattern.compile(emailRegex)
-        return pattern.matcher(email).matches()
-    }
+
 }
