@@ -4,5 +4,14 @@
     <string name="message_welcome_page">Mulailah jelajahi aplikasi dengan masuk ke dalam akun. Pilih Masuk jika anda telah memiliki akun dan pilih Daftar jika anda adalah pengguna baru</string>
     <string name="login">Masuk</string>
     <string name="signup">Daftar</string>
+    <string name="login_title">Masuk ke Storygram</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signup_title">Daftar ke Storygram</string>
+    <string name="username">Username</string>
+    <string name="no_acc">Belum punya akun?</string>
+    <string name="toSignup">Daftar Sekarang</string>
+    <string name="haveAcc">Sudah punya akun?</string>
+    <string name="toLogin">Masuk di sini</string>
 
 </resources>

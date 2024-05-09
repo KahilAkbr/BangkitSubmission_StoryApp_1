@@ -10,4 +10,5 @@
     </style>
 
     <style name="Theme.Storygram" parent="Base.Theme.Storygram" />
+
 </resources>
