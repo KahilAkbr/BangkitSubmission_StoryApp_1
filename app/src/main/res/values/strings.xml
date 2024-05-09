@@ -13,5 +13,7 @@
     <string name="toSignup">Daftar Sekarang</string>
     <string name="haveAcc">Sudah punya akun?</string>
     <string name="toLogin">Masuk di sini</string>
+    <string name="password_alert">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="invalid_email">Input email dengan sesuai</string>
 
 </resources>

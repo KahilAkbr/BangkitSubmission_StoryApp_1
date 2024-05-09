@@ -2,7 +2,10 @@ package com.example.storygram.view.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import com.example.storygram.R
 import com.example.storygram.databinding.ActivityRegisterBinding
 import com.example.storygram.view.login.LoginActivity
 
