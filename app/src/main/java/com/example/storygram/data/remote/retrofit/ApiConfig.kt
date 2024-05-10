@@ -1,7 +1,5 @@
 package com.example.storygram.data.remote.retrofit
-import androidx.datastore.dataStore
 import com.example.storygram.BuildConfig
-import com.example.storygram.data.preference.LoginPreferences
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

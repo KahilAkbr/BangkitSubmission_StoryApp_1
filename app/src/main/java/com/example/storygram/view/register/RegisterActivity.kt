@@ -6,30 +6,21 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.lifecycle.ViewModelProvider
 import com.example.storygram.data.Result
 import com.example.storygram.databinding.ActivityRegisterBinding
-import com.example.storygram.utils.MotionVisibility.Companion.setVisibilities
+import com.example.storygram.utils.MotionVisibility.Companion.setMotionVisibilities
 import com.example.storygram.utils.ObtainViewModelFactory
 import com.example.storygram.view.login.LoginActivity
-import com.example.storygram.view.viewmodelfactory.ViewModelFactory
-
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
-    private var isLoading = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         overridePendingTransition(androidx.appcompat.R.anim.abc_slide_in_top, 0)
 
-        val factory: ViewModelFactory =
-            ViewModelFactory.getInstance(
-                this
-            )
-        val viewModel: RegisterViewModel = ViewModelProvider(this,factory)[RegisterViewModel::class.java]
+        val viewModel = ObtainViewModelFactory.obtain<RegisterViewModel>(this)
 
         binding.toLogin.setOnClickListener {
             intent = Intent(this, LoginActivity::class.java)
@@ -45,15 +36,15 @@ class RegisterActivity : AppCompatActivity() {
                 if(result != null) {
                     when(result){
                         is Result.Loading -> {
-                            binding.progressBar.setVisibilities(View.VISIBLE)
+                            binding.progressBar.setMotionVisibilities(View.VISIBLE)
                             Log.d("BJIR", name)
                         }
                         is Result.Success -> {
-                            binding.progressBar.setVisibilities(View.GONE)
+                            binding.progressBar.setMotionVisibilities(View.GONE)
                             Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show()
                         }
                         is Result.Error -> {
-                            binding.progressBar.setVisibilities(View.GONE)
+                            binding.progressBar.setMotionVisibilities(View.GONE)
                             Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                         }
                     }

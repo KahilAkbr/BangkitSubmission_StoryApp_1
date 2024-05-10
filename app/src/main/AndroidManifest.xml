@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Storygram"
         tools:targetApi="31">
         <activity
+            android:name=".view.main.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
             android:name=".view.boarding.BoardingActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

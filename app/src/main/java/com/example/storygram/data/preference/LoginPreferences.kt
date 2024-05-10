@@ -21,9 +21,28 @@ class LoginPreferences private constructor(private val dataStore: DataStore<Pref
         }
     }
 
+    suspend fun loginPref(){
+        dataStore.edit { preferences->
+            preferences[LOGIN_STATUS] = true
+        }
+    }
+
+    fun getLoginStatus(): Flow<Boolean?>{
+        return dataStore.data.map { preferences ->
+            preferences[LOGIN_STATUS]
+        }
+    }
+
     fun getToken(): Flow<String?> {
         return dataStore.data.map { preferences ->
             preferences[LOGIN_TOKEN]
+        }
+    }
+
+    suspend fun logout(){
+        dataStore.edit { preferences->
+            preferences[LOGIN_STATUS] = false
+            preferences[LOGIN_TOKEN] = ""
         }
     }
     companion object {
