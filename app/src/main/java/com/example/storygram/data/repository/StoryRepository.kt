@@ -1,7 +1,9 @@
 package com.example.storygram.data.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.example.storygram.R
 import com.example.storygram.data.preference.LoginPreferences
 import com.example.storygram.data.remote.response.RegisterResponse
 import com.example.storygram.data.remote.retrofit.ApiService
@@ -12,8 +14,13 @@ import com.example.storygram.data.remote.response.AddStoryResponse
 import com.example.storygram.data.remote.response.LoginResponse
 import com.example.storygram.data.remote.response.StoryResponse
 import com.example.storygram.data.remote.retrofit.ApiConfig
+import com.example.storygram.utils.reduceFileImage
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class StoryRepository (
@@ -73,13 +80,27 @@ class StoryRepository (
         }
     }
 
-    fun uploadStory(file : File?, description : String, lat: Float? = null, lon: Float? = null) : LiveData<Result<AddStoryResponse>> = liveData {
+    fun uploadStory(context: Context, file : File?, description : String, lat: Float? = null, lon: Float? = null) : LiveData<Result<AddStoryResponse>> = liveData {
         emit(Result.Loading)
         try{
             val token = runBlocking {
                 loginPreferences.getToken().first()
             }
             apiService = ApiConfig.getApiSevice(token.toString())
+            if (file != null) {
+                val file = file.reduceFileImage()
+                val description = description.toRequestBody("text/plain".toMediaType())
+                val imageFile = file.asRequestBody("image/jpeg".toMediaType())
+                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "photo",
+                    file.name,
+                    imageFile
+                )
+                val response = apiService.uploadStory(imageMultipart, description, lat, lon)
+                emit(Result.Success(response))
+            } else {
+                emit(Result.Error(context.getString(R.string.empty_image)))
+            }
 
         }catch (e: HttpException) {
             val response = e.response()?.errorBody()?.string()

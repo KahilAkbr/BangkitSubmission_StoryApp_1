@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.storygram.data.repository.StoryRepository
 import com.example.storygram.di.Injection
+import com.example.storygram.view.add.AddViewModel
 import com.example.storygram.view.login.LoginViewModel
 import com.example.storygram.view.main.MainViewModel
 import com.example.storygram.view.register.RegisterViewModel
@@ -38,6 +39,8 @@ class ViewModelFactory private constructor(private val storyRepository: StoryRep
             return MainViewModel(storyRepository) as T
         }else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
             return SettingViewModel(storyRepository) as T
+        }else if (modelClass.isAssignableFrom(AddViewModel::class.java)) {
+            return AddViewModel(storyRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

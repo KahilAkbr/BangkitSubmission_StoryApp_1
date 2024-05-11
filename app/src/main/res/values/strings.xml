@@ -24,5 +24,8 @@
     <string name="gallery">Galeri</string>
     <string name="description">Deskripsi</string>
     <string name="upload">Unggah</string>
+    <string name="empty_image">Harap unggah gambar terlebih dahulu!</string>
+    <string name="upload_success">Upload Berhasil!</string>
+    <string name="upload_success_msg">Berhasil mengunggah cerita</string>
 
 </resources>
