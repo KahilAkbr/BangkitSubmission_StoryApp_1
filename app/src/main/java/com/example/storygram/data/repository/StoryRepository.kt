@@ -2,6 +2,7 @@ package com.example.storygram.data.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.example.storygram.R
 import com.example.storygram.data.preference.LoginPreferences
@@ -10,6 +11,7 @@ import com.example.storygram.data.remote.retrofit.ApiService
 import com.google.gson.Gson
 import retrofit2.HttpException
 import com.example.storygram.data.Result
+import com.example.storygram.data.preference.LanguagePreferences
 import com.example.storygram.data.remote.response.AddStoryResponse
 import com.example.storygram.data.remote.response.LoginResponse
 import com.example.storygram.data.remote.response.StoryResponse
@@ -22,10 +24,12 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.util.Locale
 
 class StoryRepository (
     private var apiService: ApiService,
     private val loginPreferences: LoginPreferences,
+    private val languagePreferences: LanguagePreferences
 ){
     fun register(name: String, email: String, password: String) : LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
@@ -111,13 +115,21 @@ class StoryRepository (
         }
     }
 
+    fun getLanguange() : LiveData<Locale> {
+        return languagePreferences.getLanguage().asLiveData()
+    }
+
+    suspend fun setLanguage(language : String){
+        languagePreferences.setLanguage(language)
+    }
+
     companion object {
         @Volatile
         private var instance: StoryRepository? = null
 
-        fun getInstance(apiService: ApiService, preferences: LoginPreferences): StoryRepository =
+        fun getInstance(apiService: ApiService, preferences: LoginPreferences, preferences2: LanguagePreferences): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService, preferences).also { instance = it }
+                instance ?: StoryRepository(apiService, preferences, preferences2).also { instance = it }
             }
     }
 }
