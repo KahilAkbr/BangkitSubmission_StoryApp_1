@@ -8,11 +8,13 @@ import com.example.storygram.data.remote.retrofit.ApiService
 import com.google.gson.Gson
 import retrofit2.HttpException
 import com.example.storygram.data.Result
+import com.example.storygram.data.remote.response.AddStoryResponse
 import com.example.storygram.data.remote.response.LoginResponse
 import com.example.storygram.data.remote.response.StoryResponse
 import com.example.storygram.data.remote.retrofit.ApiConfig
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import java.io.File
 
 class StoryRepository (
     private var apiService: ApiService,
@@ -65,6 +67,23 @@ class StoryRepository (
         } catch (e: HttpException) {
             val response = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(response, StoryResponse::class.java)
+            emit(Result.Error(error.message))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun uploadStory(file : File?, description : String, lat: Float? = null, lon: Float? = null) : LiveData<Result<AddStoryResponse>> = liveData {
+        emit(Result.Loading)
+        try{
+            val token = runBlocking {
+                loginPreferences.getToken().first()
+            }
+            apiService = ApiConfig.getApiSevice(token.toString())
+
+        }catch (e: HttpException) {
+            val response = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(response, AddStoryResponse::class.java)
             emit(Result.Error(error.message))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))

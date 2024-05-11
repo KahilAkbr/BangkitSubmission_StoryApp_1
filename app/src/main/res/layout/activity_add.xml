@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/camera"
         android:fontFamily="@font/poppins_regular"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"
         android:layout_marginEnd="16dp"
@@ -41,7 +41,7 @@
         android:layout_marginStart="16dp"
         android:text="@string/gallery"
         android:fontFamily="@font/poppins_regular"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/guideline4"
         app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"
         android:backgroundTint="@color/primary_blue_color"/>
