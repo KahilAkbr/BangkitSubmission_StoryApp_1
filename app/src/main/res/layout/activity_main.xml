@@ -65,8 +65,16 @@
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/ic_baseline_add_24"
         app:tint = "@color/white"
-        app:backgroundTint="@color/primary_blue_color"
+        app:backgroundTint="@color/black"
         />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="12dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
