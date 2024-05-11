@@ -55,12 +55,6 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent)
                                 finishAffinity()
                             }.create().show()
-                            alertBuilder.setOnCancelListener{
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(intent)
-                                finishAffinity()
-                            }
                         }
                         is Result.Error -> {
                             binding.progressBar.setMotionVisibilities(View.GONE)
@@ -68,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
                             alertBuilder.setTitle(getString(R.string.login_error))
                             alertBuilder.setMessage(result.error)
                             alertBuilder.setPositiveButton("OK"){_, _ -> }.create().show()
-                            alertBuilder.setOnCancelListener {}
                         }
                     }
                 }

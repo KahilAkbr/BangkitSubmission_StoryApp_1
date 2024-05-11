@@ -8,6 +8,7 @@ import com.example.storygram.di.Injection
 import com.example.storygram.view.login.LoginViewModel
 import com.example.storygram.view.main.MainViewModel
 import com.example.storygram.view.register.RegisterViewModel
+import com.example.storygram.view.setting.SettingViewModel
 import com.example.storygram.view.splash.SplashViewModel
 
 class ViewModelFactory private constructor(private val storyRepository: StoryRepository): ViewModelProvider.NewInstanceFactory() {
@@ -35,6 +36,8 @@ class ViewModelFactory private constructor(private val storyRepository: StoryRep
             return SplashViewModel(storyRepository) as T
         }else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(storyRepository) as T
+        }else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
+            return SettingViewModel(storyRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

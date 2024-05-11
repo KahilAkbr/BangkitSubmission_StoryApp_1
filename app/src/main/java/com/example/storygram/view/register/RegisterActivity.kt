@@ -56,7 +56,6 @@ class RegisterActivity : AppCompatActivity() {
                                 startActivity(intent)
                                 finishAffinity()
                             }.create().show()
-                            alertBuilder.setOnCancelListener{}
                         }
                         is Result.Error -> {
                             binding.progressBar.setMotionVisibilities(View.GONE)
@@ -64,7 +63,6 @@ class RegisterActivity : AppCompatActivity() {
                             alertBuilder.setTitle(getString(R.string.login_error))
                             alertBuilder.setMessage(result.error)
                             alertBuilder.setPositiveButton("OK"){_, _ -> }.create().show()
-                            alertBuilder.setOnCancelListener {}
                         }
                     }
                 }
