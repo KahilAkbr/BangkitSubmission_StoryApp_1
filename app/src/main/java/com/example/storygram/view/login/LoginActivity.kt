@@ -1,11 +1,13 @@
 package com.example.storygram.view.login
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.storygram.R
 import com.example.storygram.data.Result
 import com.example.storygram.databinding.ActivityLoginBinding
 import com.example.storygram.utils.MotionVisibility.Companion.setMotionVisibilities
@@ -23,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
 
         val viewModel = ObtainViewModelFactory.obtain<LoginViewModel>(this)
 
+        val alertBuilder = AlertDialog.Builder(this)
+
         binding.toSignUp.setOnClickListener {
             intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -37,20 +41,34 @@ class LoginActivity : AppCompatActivity() {
                     when(result){
                         is Result.Loading -> {
                             binding.progressBar.setMotionVisibilities(View.VISIBLE)
+                            binding.btnLogin.isClickable = false
                         }
                         is Result.Success -> {
                             binding.progressBar.setMotionVisibilities(View.GONE)
+                            binding.btnLogin.isClickable = true
                             viewModel.saveToken(result.data.loginResult.token)
-                            Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show()
-
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
-                            finishAffinity()
+                            alertBuilder.setTitle(getString(R.string.login_sukses))
+                            alertBuilder.setMessage(getString(R.string.start_share))
+                            alertBuilder.setPositiveButton("OK"){ _, _ ->
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                                finishAffinity()
+                            }.create().show()
+                            alertBuilder.setOnCancelListener{
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                                finishAffinity()
+                            }
                         }
                         is Result.Error -> {
                             binding.progressBar.setMotionVisibilities(View.GONE)
-                            Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
+                            binding.btnLogin.isClickable = true
+                            alertBuilder.setTitle(getString(R.string.login_error))
+                            alertBuilder.setMessage(result.error)
+                            alertBuilder.setPositiveButton("OK"){_, _ -> }.create().show()
+                            alertBuilder.setOnCancelListener {}
                         }
                     }
                 }

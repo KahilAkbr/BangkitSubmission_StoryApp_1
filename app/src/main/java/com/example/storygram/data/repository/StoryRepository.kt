@@ -20,9 +20,9 @@ class StoryRepository (
             val response = apiService.register(name, email, password)
             emit(Result.Success(response))
         } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val error = Gson().fromJson(jsonInString, RegisterResponse::class.java)
-            emit(Result.Error(error.message.toString()))
+            val response = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(response, RegisterResponse::class.java)
+            emit(Result.Error(error.message))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
@@ -34,9 +34,9 @@ class StoryRepository (
             val response = apiService.login(email, password)
             emit(Result.Success(response))
         } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val error = Gson().fromJson(jsonInString, LoginResponse::class.java)
-            emit(Result.Error(error.message.toString()))
+            val response = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(response, LoginResponse::class.java)
+            emit(Result.Error(error.message))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
