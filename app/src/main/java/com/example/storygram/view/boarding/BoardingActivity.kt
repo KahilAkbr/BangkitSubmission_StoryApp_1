@@ -10,7 +10,7 @@ import com.example.storygram.view.login.LoginActivity
 import com.example.storygram.view.register.RegisterActivity
 
 class BoardingActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityBoardingBinding
+    private lateinit var binding: ActivityBoardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardingBinding.inflate(layoutInflater)

@@ -8,17 +8,17 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 
 class SettingViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    fun logout(){
+    fun logout() {
         viewModelScope.launch {
             storyRepository.logout()
         }
     }
 
-    fun getLanguage() : LiveData<Locale>{
+    fun getLanguage(): LiveData<Locale> {
         return storyRepository.getLanguange()
     }
 
-    fun setLanguage(language : String){
+    fun setLanguage(language: String) {
         viewModelScope.launch {
             storyRepository.setLanguage(language)
         }

@@ -24,26 +24,24 @@
         android:id="@+id/tv_detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"
         android:layout_marginHorizontal="12dp"
-        tools:text="Username"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins_regular"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"
+        tools:text="Username" />
 
     <TextView
         android:id="@+id/tv_detail_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_name"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="12dp"
-        tools:text="Username"
         android:fontFamily="@font/poppins_regular"
         android:textSize="16sp"
-        />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_name"
+        tools:text="Username" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,13 @@ import com.example.storygram.data.repository.StoryRepository
 import java.io.File
 
 class AddViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    fun uploadStory(context : Context, file : File?, description : String, lat: Float? = null, lon: Float? = null) : LiveData<Result<AddStoryResponse>> {
+    fun uploadStory(
+        context: Context,
+        file: File?,
+        description: String,
+        lat: Float? = null,
+        lon: Float? = null
+    ): LiveData<Result<AddStoryResponse>> {
         return storyRepository.uploadStory(context, file, description, lat, lon)
     }
 }

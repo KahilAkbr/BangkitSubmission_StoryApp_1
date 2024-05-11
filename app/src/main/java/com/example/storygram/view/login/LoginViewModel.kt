@@ -9,11 +9,11 @@ import com.example.storygram.data.repository.StoryRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    fun login(email : String, password : String) : LiveData<Result<LoginResponse>> {
+    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
         return storyRepository.login(email, password)
     }
 
-    fun saveToken(token : String){
+    fun saveToken(token: String) {
         viewModelScope.launch {
             storyRepository.saveToken(token)
             storyRepository.loginPref()

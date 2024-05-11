@@ -21,6 +21,7 @@ class LanguagePreferences private constructor(private val dataStore: DataStore<P
             preferences[LANGUAGE_PREF] = language
         }
     }
+
     companion object {
         @Volatile
         private var INSTANCE: LanguagePreferences? = null

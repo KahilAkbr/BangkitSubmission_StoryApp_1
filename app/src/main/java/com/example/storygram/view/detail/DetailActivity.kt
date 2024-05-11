@@ -1,16 +1,14 @@
 package com.example.storygram.view.detail
 
-import android.nfc.NfcAdapter.EXTRA_DATA
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.storygram.data.remote.response.ListStoryItem
 import com.example.storygram.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityDetailBinding
+    private lateinit var binding: ActivityDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -32,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    companion object{
+    companion object {
         const val STORY_DATA = "story_data"
     }
 }

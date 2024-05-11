@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
 class SplashActivity : AppCompatActivity() {
-    companion object{
-        const val SPLASH_DURATION : Long = 2000
+    companion object {
+        const val SPLASH_DURATION: Long = 2000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

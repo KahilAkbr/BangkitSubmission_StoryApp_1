@@ -23,32 +23,33 @@
         android:id="@+id/us_flag"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:src="@drawable/bendera_us"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/bendera_us"
         app:layout_constraintEnd_toStartOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/tv_language"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_language" />
 
     <ImageButton
         android:id="@+id/indo_flag"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:src="@drawable/bendera_indo"
         android:layout_marginTop="16dp"
+        android:src="@drawable/bendera_indo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/tv_language"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_language" />
+
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Logout"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_regular"
         android:backgroundTint="@color/primary_blue_color"
-        app:layout_constraintTop_toBottomOf="@id/us_flag"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/Logout"
+        app:layout_constraintEnd_toEndOf="@id/indo_flag"
         app:layout_constraintStart_toStartOf="@id/us_flag"
-        app:layout_constraintEnd_toEndOf="@id/indo_flag"/>
+        app:layout_constraintTop_toBottomOf="@id/us_flag" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"

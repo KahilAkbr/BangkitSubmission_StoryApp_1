@@ -1,4 +1,5 @@
 package com.example.storygram.data.remote.retrofit
+
 import com.example.storygram.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -7,10 +8,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
-    companion object{
+    companion object {
         private const val BASE_URL = BuildConfig.BASE_URL
-        fun getApiSevice(token : String): ApiService{
-            val loggingInterceptor = if(BuildConfig.DEBUG) {
+        fun getApiSevice(token: String): ApiService {
+            val loggingInterceptor = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             } else {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)

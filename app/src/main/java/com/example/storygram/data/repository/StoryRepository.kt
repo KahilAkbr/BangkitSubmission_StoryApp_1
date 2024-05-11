@@ -26,12 +26,16 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.util.Locale
 
-class StoryRepository (
+class StoryRepository(
     private var apiService: ApiService,
     private val loginPreferences: LoginPreferences,
     private val languagePreferences: LanguagePreferences
-){
-    fun register(name: String, email: String, password: String) : LiveData<Result<RegisterResponse>> = liveData {
+) {
+    fun register(
+        name: String,
+        email: String,
+        password: String
+    ): LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.register(name, email, password)
@@ -45,7 +49,7 @@ class StoryRepository (
         }
     }
 
-    fun login(email : String, password: String) : LiveData<Result<LoginResponse>> = liveData {
+    fun login(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.login(email, password)
@@ -59,14 +63,14 @@ class StoryRepository (
         }
     }
 
-    suspend fun saveToken(token : String) = loginPreferences.saveToken(token)
+    suspend fun saveToken(token: String) = loginPreferences.saveToken(token)
 
     suspend fun loginPref() = loginPreferences.loginPref()
 
     fun getLoginStatus() = loginPreferences.getLoginStatus()
     suspend fun logout() = loginPreferences.logout()
 
-    fun getAllStory() : LiveData<Result<StoryResponse>> = liveData{
+    fun getAllStory(): LiveData<Result<StoryResponse>> = liveData {
         emit(Result.Loading)
         try {
             val token = runBlocking {
@@ -84,29 +88,35 @@ class StoryRepository (
         }
     }
 
-    fun uploadStory(context: Context, file : File?, description : String, lat: Float? = null, lon: Float? = null) : LiveData<Result<AddStoryResponse>> = liveData {
+    fun uploadStory(
+        context: Context,
+        file: File?,
+        description: String,
+        lat: Float? = null,
+        lon: Float? = null
+    ): LiveData<Result<AddStoryResponse>> = liveData {
         emit(Result.Loading)
-        try{
+        try {
             val token = runBlocking {
                 loginPreferences.getToken().first()
             }
             apiService = ApiConfig.getApiSevice(token.toString())
             if (file != null) {
-                val file = file.reduceFileImage()
-                val description = description.toRequestBody("text/plain".toMediaType())
-                val imageFile = file.asRequestBody("image/jpeg".toMediaType())
+                val files = file.reduceFileImage()
+                val desc = description.toRequestBody("text/plain".toMediaType())
+                val imageFile = files.asRequestBody("image/jpeg".toMediaType())
                 val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                     "photo",
-                    file.name,
+                    files.name,
                     imageFile
                 )
-                val response = apiService.uploadStory(imageMultipart, description, lat, lon)
+                val response = apiService.uploadStory(imageMultipart, desc, lat, lon)
                 emit(Result.Success(response))
             } else {
                 emit(Result.Error(context.getString(R.string.empty_image)))
             }
 
-        }catch (e: HttpException) {
+        } catch (e: HttpException) {
             val response = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(response, AddStoryResponse::class.java)
             emit(Result.Error(error.message))
@@ -115,11 +125,11 @@ class StoryRepository (
         }
     }
 
-    fun getLanguange() : LiveData<Locale> {
+    fun getLanguange(): LiveData<Locale> {
         return languagePreferences.getLanguage().asLiveData()
     }
 
-    suspend fun setLanguage(language : String){
+    suspend fun setLanguage(language: String) {
         languagePreferences.setLanguage(language)
     }
 
@@ -127,9 +137,15 @@ class StoryRepository (
         @Volatile
         private var instance: StoryRepository? = null
 
-        fun getInstance(apiService: ApiService, preferences: LoginPreferences, preferences2: LanguagePreferences): StoryRepository =
+        fun getInstance(
+            apiService: ApiService,
+            preferences: LoginPreferences,
+            preferences2: LanguagePreferences
+        ): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService, preferences, preferences2).also { instance = it }
+                instance ?: StoryRepository(apiService, preferences, preferences2).also {
+                    instance = it
+                }
             }
     }
 }

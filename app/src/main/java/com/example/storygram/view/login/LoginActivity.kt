@@ -3,9 +3,7 @@ package com.example.storygram.view.login
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.storygram.R
 import com.example.storygram.data.Result
@@ -16,7 +14,7 @@ import com.example.storygram.view.main.MainActivity
 import com.example.storygram.view.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -36,38 +34,41 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
-            viewModel.login(email, password).observe(this){result ->
-                if(result != null){
-                    when(result){
+            viewModel.login(email, password).observe(this) { result ->
+                if (result != null) {
+                    when (result) {
                         is Result.Loading -> {
                             binding.progressBar.setMotionVisibilities(View.VISIBLE)
                             binding.btnLogin.isClickable = false
                         }
+
                         is Result.Success -> {
                             binding.progressBar.setMotionVisibilities(View.GONE)
                             binding.btnLogin.isClickable = true
                             viewModel.saveToken(result.data.loginResult.token)
                             alertBuilder.setTitle(getString(R.string.login_sukses))
                             alertBuilder.setMessage(getString(R.string.start_share))
-                            alertBuilder.setPositiveButton("OK"){ _, _ ->
+                            alertBuilder.setPositiveButton("OK") { _, _ ->
                                 val intent = Intent(this, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                                finishAffinity()
+                            }.setOnCancelListener {
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
                                 finishAffinity()
                             }.create().show()
-                            alertBuilder.setOnCancelListener {
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(intent)
-                                finishAffinity()
-                            }.show()
                         }
+
                         is Result.Error -> {
                             binding.progressBar.setMotionVisibilities(View.GONE)
                             binding.btnLogin.isClickable = true
                             alertBuilder.setTitle(getString(R.string.login_error))
                             alertBuilder.setMessage(result.error)
-                            alertBuilder.setPositiveButton("OK"){_, _ -> }.create().show()
+                            alertBuilder.setPositiveButton("OK") { _, _ -> }.create().show()
                         }
                     }
                 }

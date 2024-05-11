@@ -20,17 +20,17 @@ interface ApiService {
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ) : RegisterResponse
+    ): RegisterResponse
 
     @FormUrlEncoded
     @POST("login")
     suspend fun login(
         @Field("email") email: String,
         @Field("password") password: String
-    ) : LoginResponse
+    ): LoginResponse
 
     @GET("stories")
-    suspend fun getAllStories() : StoryResponse
+    suspend fun getAllStories(): StoryResponse
 
     @Multipart
     @POST("stories")

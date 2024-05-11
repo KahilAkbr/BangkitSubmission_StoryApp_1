@@ -12,8 +12,9 @@ import com.example.storygram.view.register.RegisterViewModel
 import com.example.storygram.view.setting.SettingViewModel
 import com.example.storygram.view.splash.SplashViewModel
 
-class ViewModelFactory private constructor(private val storyRepository: StoryRepository): ViewModelProvider.NewInstanceFactory() {
-    companion object{
+class ViewModelFactory private constructor(private val storyRepository: StoryRepository) :
+    ViewModelProvider.NewInstanceFactory() {
+    companion object {
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
 
@@ -28,18 +29,19 @@ class ViewModelFactory private constructor(private val storyRepository: StoryRep
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
             return RegisterViewModel(storyRepository) as T
-        }else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+        } else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(storyRepository) as T
-        }else if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
+        } else if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
             return SplashViewModel(storyRepository) as T
-        }else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+        } else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(storyRepository) as T
-        }else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
+        } else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
             return SettingViewModel(storyRepository) as T
-        }else if (modelClass.isAssignableFrom(AddViewModel::class.java)) {
+        } else if (modelClass.isAssignableFrom(AddViewModel::class.java)) {
             return AddViewModel(storyRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

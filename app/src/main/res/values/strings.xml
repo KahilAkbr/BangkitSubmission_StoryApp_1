@@ -30,5 +30,7 @@
     <string name="choose_language">Select a language</string>
     <string name="Logout">Logout</string>
     <string name="switch_language">Language changed successfully</string>
+    <string name="logout_alert">Are you sure?</string>
+    <string name="logout">Logout</string>
 
 </resources>

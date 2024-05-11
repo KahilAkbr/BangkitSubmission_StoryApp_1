@@ -11,40 +11,42 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "login_preferences")
-class LoginPreferences private constructor(private val dataStore: DataStore<Preferences>){
-    private val LOGIN_TOKEN = stringPreferencesKey("token")
-    private val LOGIN_STATUS = booleanPreferencesKey("status")
 
-    suspend fun saveToken(token : String){
-        dataStore.edit {preferences ->
-            preferences[LOGIN_TOKEN] = token
+class LoginPreferences private constructor(private val dataStore: DataStore<Preferences>) {
+    private val loginToken = stringPreferencesKey("token")
+    private val loginStatus = booleanPreferencesKey("status")
+
+    suspend fun saveToken(token: String) {
+        dataStore.edit { preferences ->
+            preferences[loginToken] = token
         }
     }
 
-    suspend fun loginPref(){
-        dataStore.edit { preferences->
-            preferences[LOGIN_STATUS] = true
+    suspend fun loginPref() {
+        dataStore.edit { preferences ->
+            preferences[loginStatus] = true
         }
     }
 
-    fun getLoginStatus(): Flow<Boolean?>{
+    fun getLoginStatus(): Flow<Boolean?> {
         return dataStore.data.map { preferences ->
-            preferences[LOGIN_STATUS]
+            preferences[loginStatus]
         }
     }
 
     fun getToken(): Flow<String?> {
         return dataStore.data.map { preferences ->
-            preferences[LOGIN_TOKEN]
+            preferences[loginToken]
         }
     }
 
-    suspend fun logout(){
-        dataStore.edit { preferences->
-            preferences[LOGIN_STATUS] = false
-            preferences[LOGIN_TOKEN] = ""
+    suspend fun logout() {
+        dataStore.edit { preferences ->
+            preferences[loginStatus] = false
+            preferences[loginToken] = ""
         }
     }
+
     companion object {
         @Volatile
         private var INSTANCE: LoginPreferences? = null

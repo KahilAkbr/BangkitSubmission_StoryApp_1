@@ -7,15 +7,14 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
 import com.example.storygram.R
 import com.example.storygram.utils.EmailValidator
-import java.util.regex.Pattern
 
 class EditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AppCompatEditText(context, attrs) {
-    init{
-        when(id){
+    init {
+        when (id) {
             R.id.ed_login_password, R.id.ed_register_password -> {
-                addTextChangedListener(object : TextWatcher{
+                addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         s: CharSequence?,
                         start: Int,
@@ -31,10 +30,10 @@ class EditText @JvmOverloads constructor(
                         before: Int,
                         count: Int
                     ) {
-                        if (s.toString().length < 8){
-                            error = context.getString(R.string.password_alert)
-                        }else{
-                            error = null
+                        error = if (s.toString().length < 8) {
+                            context.getString(R.string.password_alert)
+                        } else {
+                            null
                         }
                     }
 
@@ -44,8 +43,9 @@ class EditText @JvmOverloads constructor(
 
                 })
             }
+
             R.id.ed_login_email, R.id.ed_register_email -> {
-                addTextChangedListener(object : TextWatcher{
+                addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         s: CharSequence?,
                         start: Int,
@@ -61,10 +61,10 @@ class EditText @JvmOverloads constructor(
                         before: Int,
                         count: Int
                     ) {
-                        if (!EmailValidator.validate(s.toString())) {
-                            error = context.getString(R.string.invalid_email)
+                        error = if (!EmailValidator.validate(s.toString())) {
+                            context.getString(R.string.invalid_email)
                         } else {
-                            error = null
+                            null
                         }
                     }
 

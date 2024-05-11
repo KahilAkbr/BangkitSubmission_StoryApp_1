@@ -31,4 +31,6 @@
     <string name="choose_language">Pilih Bahasa</string>
     <string name="Logout">Keluar</string>
     <string name="switch_language">Bahasa berhasil diubah</string>
+    <string name="logout_alert">Apakah kamu yakin?</string>
+    <string name="logout">Keluar</string>
 </resources>

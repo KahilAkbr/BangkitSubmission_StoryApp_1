@@ -4,7 +4,7 @@ import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 class MotionVisibility {
-    companion object{
+    companion object {
         fun View.setMotionVisibilities(visibility: Int) {
             val motionLayout = parent as MotionLayout
             motionLayout.constraintSetIds.forEach {
