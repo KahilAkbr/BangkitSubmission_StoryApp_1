@@ -22,5 +22,7 @@
     <string name="register_sukses">Daftar Berhasil</string>
     <string name="camera">Kamera</string>
     <string name="gallery">Galeri</string>
+    <string name="description">Deskripsi</string>
+    <string name="upload">Unggah</string>
 
 </resources>
