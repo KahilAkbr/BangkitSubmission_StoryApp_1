@@ -14,7 +14,7 @@ class EditText @JvmOverloads constructor(
 ) : AppCompatEditText(context, attrs) {
     init{
         when(id){
-            R.id.password_edit_text -> {
+            R.id.ed_login_password, R.id.ed_register_password -> {
                 addTextChangedListener(object : TextWatcher{
                     override fun beforeTextChanged(
                         s: CharSequence?,
@@ -44,7 +44,7 @@ class EditText @JvmOverloads constructor(
 
                 })
             }
-            R.id.email_edit_text -> {
+            R.id.ed_login_email, R.id.ed_register_email -> {
                 addTextChangedListener(object : TextWatcher{
                     override fun beforeTextChanged(
                         s: CharSequence?,

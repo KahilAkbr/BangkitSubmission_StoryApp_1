@@ -18,6 +18,7 @@ import com.example.storygram.data.remote.response.StoryResponse
 import com.example.storygram.databinding.ActivityMainBinding
 import com.example.storygram.utils.MotionVisibility.Companion.setMotionVisibilities
 import com.example.storygram.utils.ObtainViewModelFactory
+import com.example.storygram.view.add.AddActivity
 import com.example.storygram.view.boarding.BoardingActivity
 import com.example.storygram.view.login.LoginActivity
 import com.example.storygram.view.setting.SettingActivity
@@ -37,6 +38,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.addStory.setOnClickListener {
+            val intent = Intent(this, AddActivity::class.java)
+            startActivity(intent)
+        }
+
         viewModel.getAllStory().observe(this){result ->
             if(result != null) {
                 when(result){
@@ -46,10 +52,11 @@ class MainActivity : AppCompatActivity() {
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         getStory(result.data.listStory)
+                        Log.d("BJIR", result.data.listStory.toString())
                     }
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Log.d("BJIR", result.error)
+                        Log.d("BJIR222", result.error)
                     }
                 }
             }

@@ -10,6 +10,9 @@ import retrofit2.HttpException
 import com.example.storygram.data.Result
 import com.example.storygram.data.remote.response.LoginResponse
 import com.example.storygram.data.remote.response.StoryResponse
+import com.example.storygram.data.remote.retrofit.ApiConfig
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class StoryRepository (
     private var apiService: ApiService,
@@ -53,6 +56,10 @@ class StoryRepository (
     fun getAllStory() : LiveData<Result<StoryResponse>> = liveData{
         emit(Result.Loading)
         try {
+            val token = runBlocking {
+                loginPreferences.getToken().first()
+            }
+            apiService = ApiConfig.getApiSevice(token.toString())
             val response = apiService.getAllStories()
             emit(Result.Success(response))
         } catch (e: HttpException) {
@@ -63,6 +70,7 @@ class StoryRepository (
             emit(Result.Error(e.message.toString()))
         }
     }
+
     companion object {
         @Volatile
         private var instance: StoryRepository? = null

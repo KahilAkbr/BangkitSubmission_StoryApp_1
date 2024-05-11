@@ -28,10 +28,10 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_
     class MyViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(result: ListStoryItem) {
-            binding.tvUsername.text = result.name
+            binding.tvItemName.text = result.name
             Glide.with(binding.root.context)
                 .load(result.photoUrl)
-                .into(binding.imgItemPhoto)
+                .into(binding.ivItemPhoto)
         }
     }
 

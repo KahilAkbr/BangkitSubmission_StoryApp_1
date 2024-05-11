@@ -34,8 +34,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
+            val email = binding.edLoginEmail.text.toString()
+            val password = binding.edLoginPassword.text.toString()
             viewModel.login(email, password).observe(this){result ->
                 if(result != null){
                     when(result){
@@ -55,6 +55,12 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent)
                                 finishAffinity()
                             }.create().show()
+                            alertBuilder.setOnCancelListener {
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                                finishAffinity()
+                            }.show()
                         }
                         is Result.Error -> {
                             binding.progressBar.setMotionVisibilities(View.GONE)
