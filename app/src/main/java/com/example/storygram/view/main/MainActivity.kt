@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getStory(result : List<ListStoryItem>?){
         val adapter = StoryAdapter()
-        adapter.getSavedResult(result)
+        adapter.submitList(result)
         binding.rvStory.adapter = adapter
         binding.rvStory.layoutManager = LinearLayoutManager(this)
     }

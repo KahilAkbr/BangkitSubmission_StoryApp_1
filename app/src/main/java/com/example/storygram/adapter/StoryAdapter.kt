@@ -1,45 +1,57 @@
 package com.example.storygram.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.storygram.data.remote.response.ListStoryItem
 import com.example.storygram.databinding.ItemStoryBinding
+import com.example.storygram.view.detail.DetailActivity
 
-class StoryAdapter : RecyclerView.Adapter<StoryAdapter.ListViewHolder>() {
-    private var resultList = listOf<ListStoryItem>()
-    inner class ListViewHolder(private val binding: ItemStoryBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(result: ListStoryItem) {
-            with(binding) {
-                tvUsername.text = result.name
-                Glide.with(root.context)
-                    .load(result.photoUrl)
-                    .into(imgItemPhoto)
+class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
+            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem == newItem
             }
+
+            override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem == newItem
+            }
+        }
+        const val STORY_DATA = "story_data"
+    }
+
+    class MyViewHolder(private val binding: ItemStoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(result: ListStoryItem) {
+            binding.tvUsername.text = result.name
+            Glide.with(binding.root.context)
+                .load(result.photoUrl)
+                .into(binding.imgItemPhoto)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ListViewHolder(binding)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MyViewHolder {
+        val binding =
+            ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return resultList.size
-    }
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val result = getItem(position)
+        holder.bind(result)
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(resultList[position])
-    }
-
-    fun getSavedResult(newList:List<ListStoryItem>?) {
-        val diffCallback = StoryDiffCallback(resultList, newList ?: emptyList())
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        this.resultList = newList ?: emptyList()
-        diffResult.dispatchUpdatesTo(this)
+        holder.itemView.setOnClickListener {
+            val moveDetail = Intent(holder.itemView.context, DetailActivity::class.java)
+            moveDetail.putExtra(STORY_DATA, result)
+            holder.itemView.context.startActivity(moveDetail)
+        }
     }
 }

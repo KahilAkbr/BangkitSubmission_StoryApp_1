@@ -1,15 +1,38 @@
 package com.example.storygram.view.detail
 
+import android.nfc.NfcAdapter.EXTRA_DATA
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.storygram.R
+import com.bumptech.glide.Glide
+import com.example.storygram.data.remote.response.ListStoryItem
+import com.example.storygram.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val storyDetail = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra(STORY_DATA, ListStoryItem::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(STORY_DATA)
+        }
+
+        binding.apply {
+            Glide.with(this@DetailActivity)
+                .load(storyDetail?.photoUrl)
+                .into(binding.imageView)
+            binding.tvUsername.text = storyDetail?.name
+            binding.tvDesc.text = storyDetail?.description
+        }
+    }
+
+    companion object{
+        const val STORY_DATA = "story_data"
     }
 }

@@ -20,5 +20,7 @@
     <string name="login_error">Terjadi Kesalahan</string>
     <string name="login_now">Login Sekarang</string>
     <string name="register_sukses">Daftar Berhasil</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
 
 </resources>

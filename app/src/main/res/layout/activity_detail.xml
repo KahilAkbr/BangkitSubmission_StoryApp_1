@@ -7,4 +7,43 @@
     android:layout_height="match_parent"
     tools:context=".view.detail.DetailActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="12dp"
+        tools:text="Username"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvUsername"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="12dp"
+        tools:text="Username"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="16sp"
+        />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
